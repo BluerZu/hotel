@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: hotel_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8789:8080"
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/HOTEL_DB
+      DB_USERNAME: root
+      DB_PASSWORD: toor
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: postgres-container
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: HOTEL_DB
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
